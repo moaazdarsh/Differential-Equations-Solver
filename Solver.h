@@ -34,33 +34,37 @@ class heat_eqn_1D{
         double alpha; // Thermal diffusivity
         double delta_x;
         double delta_t;
-        vector<double> mesh;
-        vector<double> kernel = {1.0/3, 1.0/3, 1.0/3}; // Simple average kernel
+        vector<double> mesh_0;
+        //vector<double> kernel = {1.0/3, 1.0/3, 1.0/3}; // Simple average kernel
         vector<vector<double>> timeline;
 
-        void solve_recurse(double dx, double dt, int iterations);
+        void solve_recurse(vector<double> current_mesh, double dx, double dt, int iterations);
     public:
-        heat_eqn_1D(double a, vector<double> initial_temp);
-        void solve(double dx, double dt, int iterations);
-        vector<double> get_mesh();
+        heat_eqn_1D(double a);
+        void solve(vector<double> mesh0, double dx, double dt, int iterations);
         void export_to_CSV(string filename);
 };
 
-/*
+
 class heat_eqn_2D{
     private:
         double alpha;
-        vector<vector<double>> kernel = {
+        double delta_x;
+        double delta_t;
+        /*vector<vector<double>> kernel = {
             {0,     1.0/5,     0},
             {1.0/5, 1.0/5, 1.0/5},
             {0,     1.0/5,     0}
-        };
-        double delta_x;
-        double delta_t;
-        vector<vector<double>> mesh;
-    public:
+        };*/
+        vector<vector<double>> mesh_0;
+        vector<vector<vector<double>>> timeline;
 
+        void solve_recurse(vector<vector<double>> current_mesh, double dx, double dt, int iterations);
+    public:
+        heat_eqn_2D(double a);
+        void solve(vector<vector<double>> mesh0, double dx, double dt, int iterations);
+        void export_to_CSV(string filename);
 
 };
-*/
+
 #endif

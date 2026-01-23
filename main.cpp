@@ -19,15 +19,21 @@ int main() {
 
     ode.export_to_CSV("ode_solution.csv");
 */
-    vector<double> initial_temp = {100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // Initial temperature distribution
-    heat_eqn_1D heat_eq(0.2, initial_temp);
-    heat_eq.solve(1.0, 0.5, 10000); // dx=1.0, dt=0.1, iterations=1000
+    int nx = 50, ny = 50;
+    vector<vector<double>> initial_temp(ny, vector<double>(nx, 0.0));
     
-    auto mesh = heat_eq.get_mesh();
-    for (size_t i = 0; i < mesh.size(); ++i) {
-        cout << mesh[i] << " ";
+    // Heat up left side (x=0) and bottom side (y=0) to 50
+    for (int i = 0; i < ny; i++) {
+        initial_temp[i][0] = 50.0; // Left side
     }
+    for (int j = 0; j < nx; j++) {
+        initial_temp[ny-1][j] = 50.0; // Bottom side
+    }
+    
+    heat_eqn_2D heat_eq(0.1);
+    heat_eq.solve(initial_temp, 1.0, 0.2, 5000); // dx=1.0, dt=0.2, iterations=10000
+    
     cout << "\n";
-    heat_eq.export_to_CSV("heat_equation_solution.csv");  
+    heat_eq.export_to_CSV("heat2D_equation_solution.csv");  
     return 0;
 }

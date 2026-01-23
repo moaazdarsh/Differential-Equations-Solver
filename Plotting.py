@@ -9,18 +9,30 @@ plt.ylabel('y')
 plt.title('Solution of ODE using Runge-Kutta 4th Order Method')
 plt.show()
 '''
-data = pd.read_csv('heat_equation_solution.csv')
+data = pd.read_csv('heat2D_equation_solution.csv', header=None)
 fig, ax = plt.subplots()
 
-x = range(len(data.columns))
-line, = ax.plot(x, data.iloc[0, :], color='r')
+map = []
+
+xrange = 50
+yrange = 50
+
+for i in range(yrange):
+    row = data.iloc[0, xrange * i:xrange * (i+1)].values
+    map.append(row)
+
+contour = ax.imshow(map, cmap='hot', interpolation='nearest')
 
 def next_t(t):
-    line.set_ydata(data.iloc[10*t, :])
-    return line,
+    map = []
+    for i in range(yrange):
+        row = data.iloc[t, xrange * i:xrange * (i+1)].values
+        map.append(row)
+    contour.set_data(map)
+    return contour,
 
-ani = animation.FuncAnimation(fig, next_t, frames=len(data)//10, interval=100, blit=True)
+ani = animation.FuncAnimation(fig, next_t, frames=len(data)//1, interval=100, blit=True)
 plt.xlabel('Position along the rod')
 plt.ylabel('Temperature')
-plt.title('1D Heat Equation Simulation')
+plt.title('2D Heat Equation Simulation')
 plt.show()
