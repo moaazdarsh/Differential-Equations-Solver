@@ -5,13 +5,14 @@
 #include "Solver.h"
 
 double sample_derivative(double x, double y) {
-    return 1/(y*y*y); // Example: dy/dx = 2
+    return 1/(y*y*y); // Example: dy/dx = 1/y^3
 }
 
 int main() {
+    // ===== ODE Test =====
     /*
     ODE_1st ode(sample_derivative);
-    ode.runge_kutta_4th(0.0, 1.0, 0.01, 500); // Initial conditions: x0=0, y0=0, delta=0.1, iterations=1000
+    ode.runge_kutta_4th(0.0, 1.0, 0.01, 500); // Initial conditions: x0=0, y0=1, delta=0.01, iterations=500
 
     //for (int i = 0; i <= 1000; i++) {
         cout << ode.y_at(i * 0.1) << " ";
@@ -19,6 +20,8 @@ int main() {
 
     ode.export_to_CSV("ode_solution.csv");
 */
+    
+    // ===== Heat Equation Test =====
     int nx = 50, ny = 50;
     vector<vector<double>> initial_temp(ny, vector<double>(nx, 0.0));
     
@@ -31,7 +34,7 @@ int main() {
     }
     
     heat_eqn_2D heat_eq(0.1);
-    heat_eq.solve(initial_temp, 1.0, 0.2, 5000); // dx=1.0, dt=0.2, iterations=10000
+    heat_eq.solve(initial_temp, 1.0, 0.2, 5000); // dx=1.0, dt=0.2, iterations=5000
     
     cout << "\n";
     heat_eq.export_to_CSV("heat2D_equation_solution.csv");  

@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import pandas as pd
+
+# ============ ODE VISUALIZATION ============
 '''
 data = pd.read_csv('ode_solution.csv')
 plt.plot(data['x'], data['y'], label='ODE Solution')
@@ -9,6 +11,9 @@ plt.ylabel('y')
 plt.title('Solution of ODE using Runge-Kutta 4th Order Method')
 plt.show()
 '''
+
+# ============ 2D HEAT EQUATION VISUALIZATION ============
+
 data = pd.read_csv('heat2D_equation_solution.csv', header=None)
 fig, ax = plt.subplots()
 
