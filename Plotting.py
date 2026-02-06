@@ -4,7 +4,7 @@ import pandas as pd
 
 # ============ ODE VISUALIZATION ============
 '''
-data = pd.read_csv('ode_solution.csv')
+data = pd.read_csv('CSVs/ode_solution.csv')
 plt.plot(data['x'], data['y'], label='ODE Solution')
 plt.xlabel('x')
 plt.ylabel('y')
@@ -14,7 +14,7 @@ plt.show()
 
 # ============ 2D HEAT EQUATION VISUALIZATION ============
 
-data = pd.read_csv('heat2D_equation_solution.csv', header=None)
+data = pd.read_csv('CSVs/heat2D_equation_solution.csv', header=None)
 fig, ax = plt.subplots()
 
 map = []

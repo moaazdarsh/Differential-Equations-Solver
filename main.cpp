@@ -18,7 +18,7 @@ int main() {
         cout << ode.y_at(i * 0.1) << " ";
     }
 
-    ode.export_to_CSV("ode_solution.csv");
+    ode.export_to_CSV("CSVs/ode_solution.csv");
 */
     
     // ===== Heat Equation Test =====
@@ -37,6 +37,6 @@ int main() {
     heat_eq.solve(initial_temp, 1.0, 0.2, 5000); // dx=1.0, dt=0.2, iterations=5000
     
     cout << "\n";
-    heat_eq.export_to_CSV("heat2D_equation_solution.csv");  
+    heat_eq.export_to_CSV("CSVs/heat2D_equation_solution.csv");  
     return 0;
 }
