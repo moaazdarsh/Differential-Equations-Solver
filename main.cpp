@@ -1,6 +1,7 @@
 #include <iostream>
 #include <functional>
 #include <cmath>
+#include "Eigen/Dense"
 #include <fstream>
 #include "Solver.h"
 
@@ -10,17 +11,17 @@ double sample_derivative(double x, double y) {
 
 int main() {
     // ===== ODE Test =====
-    /*
-    ODE_1st ode(sample_derivative);
-    ode.runge_kutta_4th(0.0, 1.0, 0.01, 500); // Initial conditions: x0=0, y0=1, delta=0.01, iterations=500
+    
+    nth_ODE ode({1, 3, 3, 1}); // Example: y''' + 3y'' + 3y' + y = 0 (third order)
+    ode.euler(0.0, Eigen::Vector3d(10.0, 0.0, 0.0), 0.01, 10000);
 
     //for (int i = 0; i <= 1000; i++) {
-        cout << ode.y_at(i * 0.1) << " ";
-    }
+    //    cout << ode.y_at(i * 0.1) << " ";
+    //}
 
-    ode.export_to_CSV("CSVs/ode_solution.csv");
-*/
-    
+    ode.export_to_CSV("CSVs/2nd_ode_solution.csv");
+
+    /*
     // ===== Heat Equation Test =====
     int nx = 50, ny = 50;
     vector<vector<double>> initial_temp(ny, vector<double>(nx, 0.0));
@@ -39,4 +40,5 @@ int main() {
     cout << "\n";
     heat_eq.export_to_CSV("CSVs/heat2D_equation_solution.csv");  
     return 0;
+    */
 }

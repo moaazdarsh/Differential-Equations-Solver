@@ -1,6 +1,7 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
+#include "Eigen/Dense"
 #include <functional>
 #include <vector>
 #include <string>
@@ -25,6 +26,28 @@ class ODE_1st{
         ODE_1st(function<double(double, double)> derivative);
         void euler(double x0, double y0, double dx, int iterations);
         void runge_kutta_4th(double x0, double y0, double dx, int iterations);
+        double y_at(double x);
+        void export_to_CSV(string filename);
+};
+
+class nth_ODE{
+        private:
+        vector<double> coeffs; // Vector representing the ODE coefficients a_n*y^(n) + a_(n-1)*y^(n-1) + ... + a_0*y = 0
+        Eigen::MatrixXd state_matrix;
+        // Solution details
+        bool solved = 0;
+        double x_0;
+        Eigen::VectorXd initial_state;
+        double delta_x;
+        vector<double> domain;
+        vector<double> curve;
+
+        void euler_recurse(double x, Eigen::VectorXd state_vector, double dx, int iterations);
+        //void RK4_recurse(double x, double y, double dx, int iterations);
+    public:
+        nth_ODE(vector<double> coefficients);
+        void euler(double x0, Eigen::VectorXd initial_state_vector, double dx, int iterations);
+        //void runge_kutta_4th(double x0, double y0, double dx, int iterations);
         double y_at(double x);
         void export_to_CSV(string filename);
 };

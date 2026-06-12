@@ -3,17 +3,17 @@ import matplotlib.animation as animation
 import pandas as pd
 
 # ============ ODE VISUALIZATION ============
-'''
-data = pd.read_csv('CSVs/ode_solution.csv')
+
+data = pd.read_csv('CSVs/2nd_ode_solution.csv')
 plt.plot(data['x'], data['y'], label='ODE Solution')
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Solution of ODE using Runge-Kutta 4th Order Method')
+plt.title('Solution of ODE using Euler\'s Method')
 plt.show()
-'''
+
 
 # ============ 2D HEAT EQUATION VISUALIZATION ============
-
+'''
 data = pd.read_csv('CSVs/heat2D_equation_solution.csv', header=None)
 fig, ax = plt.subplots()
 
@@ -41,3 +41,4 @@ plt.xlabel('Position along the rod')
 plt.ylabel('Temperature')
 plt.title('2D Heat Equation Simulation')
 plt.show()
+'''
