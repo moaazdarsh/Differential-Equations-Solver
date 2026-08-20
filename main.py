@@ -1,10 +1,20 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import pandas as pd
+import subprocess
+import io
+from pathlib import Path
+
+project_dir = Path(__file__).resolve().parent
 
 # ============ ODE VISUALIZATION ============
 
-data = pd.read_csv('CSVs/2nd_ode_solution.csv')
+subprocess.run(['g++', 'Solver/ODE.cpp', 'Solver/Heat.cpp', 'main.cpp', '-o', 'Build/main.exe'], cwd=project_dir, check=True, capture_output=True, text=True)
+cpp_process = subprocess.run([str(project_dir / 'Build/main.exe')], cwd=project_dir, capture_output=True, text=True)
+
+data = pd.read_csv(io.StringIO(cpp_process.stdout), header=None, names=['x', 'y'])
+
+
 plt.plot(data['x'], data['y'], label='ODE Solution')
 plt.xlabel('x')
 plt.ylabel('y')

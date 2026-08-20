@@ -3,23 +3,25 @@
 #include <cmath>
 #include "Eigen/Dense"
 #include <fstream>
-#include "Solver.h"
+#include "Solver/Solver.h"
 
 double sample_derivative(double x, double y) {
-    return 1/(y*y*y); // Example: dy/dx = 1/y^3
+    return x; // Example: dy/dx = 1/y^3
 }
 
 int main() {
     // ===== ODE Test =====
     
-    nth_ODE ode({1, 3, 3, 1}); // Example: y''' + 3y'' + 3y' + y = 0 (third order)
-    ode.euler(0.0, Eigen::Vector3d(10.0, 0.0, 0.0), 0.01, 10000);
+    //nth_ODE ode({1, 3, 3, 1}); // Example: y''' + 3y'' + 3y' + y = 0 (third order)
+    //ode.euler(0.0, Eigen::Vector3d(10.0, 0.0, 0.0), 0.01, 10000);
 
-    //for (int i = 0; i <= 1000; i++) {
-    //    cout << ode.y_at(i * 0.1) << " ";
-    //}
+    ODE_1st ode(sample_derivative);
+    ode.runge_kutta_4th(0.0, 0.0, 0.01, 1000);
 
-    ode.export_to_CSV("CSVs/2nd_ode_solution.csv");
+    ode.export_output();
+
+
+
 
     /*
     // ===== Heat Equation Test =====

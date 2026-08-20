@@ -71,26 +71,8 @@ void ODE_1st::runge_kutta_4th(double x0, double y0, double dx, int iterations){
     RK4_recurse(x0, y0, dx, iterations);
 }
 
-double ODE_1st::y_at(double x){
-    if (!solved) return NAN;
 
-    double steps = (x - x_0) / delta_x;
-    if (steps - floor(steps) == 0) return curve[(int)steps];
-
-    double y1 = curve[(int)floor(steps)];
-    double y2 = curve[(int)ceil(steps)];
-    return y1 + (y2 - y1) * (steps - floor(steps)); // Linear interpolation
-}
-
-void ODE_1st::export_to_CSV(string filename){
-    ofstream file;
-    file.open(filename);
-    file << "x,y\n";
-    for (size_t i = 0; i < curve.size(); i++){
-        file << domain[i] << "," << curve[i] << "\n";
-    }
-    file.close();
-}
+nth_ODE::nth_ODE(){}
 
 nth_ODE::nth_ODE(vector<double> coefficients){
     coeffs = coefficients;
@@ -123,6 +105,17 @@ void nth_ODE::euler(double x0, Eigen::VectorXd initial_state_vector, double dx, 
     euler_recurse(x0, initial_state_vector, dx, iterations);
 }
 
+double nth_ODE::y_at(double x){
+    if (!solved) return NAN;
+
+    double steps = (x - x_0) / delta_x;
+    if (steps - floor(steps) == 0) return curve[(int)steps];
+
+    double y1 = curve[(int)floor(steps)];
+    double y2 = curve[(int)ceil(steps)];
+    return y1 + (y2 - y1) * (steps - floor(steps)); // Linear interpolation
+}
+
 void nth_ODE::export_to_CSV(string filename){
     ofstream file;
     file.open(filename);
@@ -131,4 +124,12 @@ void nth_ODE::export_to_CSV(string filename){
         file << domain[i] << "," << curve[i] << "\n";
     }
     file.close();
+}
+
+void nth_ODE::export_output(){
+    string CSV = "";
+    for (size_t i = 0; i < curve.size(); i++){
+        CSV += to_string(domain[i]); CSV += ","; CSV += to_string(curve[i]); CSV += "\n";
+    }
+    cout << CSV;
 }
