@@ -27,7 +27,15 @@ To get the output write
 This is necessary if you want visualization or terminal output.
 
 If you want a CSV file with the output instead run  
-`ode.export_to_CSV("CSVs/solution.csv");`
+`ode.export_to_CSV("CSVs/solution.csv");`  
+
+After writing you code in the main.cpp file, you must run the viz.py file which builds the C++ code and produces the visual output.  
+If you don't want to plot the solution, and you only want the numerical output in a CSV file or terminal output, then run the following command in the terminal.
+
+```shell
+g++ Solver/ODE.cpp Solver/Heat.cpp main.cpp -o Build/main.exe
+Build/main.exe
+```
 
 ## nth Order
 Write the coefficients of the differential equation to be solved as the parameters of a `nth_order` object.
@@ -39,3 +47,11 @@ In this case, the state vector is a vector with y and y\`. In general it's the i
 `ode.euler(0.0, Eigen::Vector2d(1.0, 0.0), 0.1, 10000);`  
 
 And you can run the same functions as before for output.
+
+After writing you code in the main.cpp file, you must run the viz.py file which builds the C++ code and produces the visual output.  
+If you don't want to plot the solution, and you only want the numerical output in a CSV file or terminal output, then run the following command in the terminal.
+
+```shell
+g++ Solver/ODE.cpp Solver/Heat.cpp main.cpp -o Build/main.exe
+Build/main.exe
+```
