@@ -2,7 +2,7 @@
 #include <vector>
 #include <functional>
 #include <cmath>
-#include "Eigen/Dense"
+#include "../Eigen/Eigen/Dense"
 #include <fstream>
 #include "Solver.h"
 
@@ -89,7 +89,7 @@ void nth_ODE::euler_recurse(double x, Eigen::VectorXd state_vector, double dx, i
 
     curve.push_back(state_vector(0));
     domain.push_back(x);
-
+    
     Eigen::VectorXd next_state = state_vector + dx * (state_matrix * state_vector);
     euler_recurse(x + dx, next_state, dx, iterations - 1);
     solved = 1;
@@ -127,6 +127,7 @@ void nth_ODE::export_to_CSV(string filename){
 }
 
 void nth_ODE::export_output(){
+    cout << "ODE\n";
     string CSV = "";
     for (size_t i = 0; i < curve.size(); i++){
         CSV += to_string(domain[i]); CSV += ","; CSV += to_string(curve[i]); CSV += "\n";

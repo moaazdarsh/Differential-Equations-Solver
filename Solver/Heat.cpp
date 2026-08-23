@@ -35,20 +35,32 @@ void heat_eqn_1D::solve_recurse(vector<double> current_mesh, double dx, double d
     solve_recurse(next_mesh, dx, dt, iterations - 1);
 }
 
+void heat_eqn_1D::export_output(){
+    cout << "Heat1D " << mesh_0.size() << endl;
+    
+    for (int t=0; t < timeline.size(); t++) {
+        for (int i=0; i < timeline[t].size(); i++) {
+            cout << timeline[t][i];
+            if (i < timeline[t].size() - 1) cout << ",";
+        }
+        cout << endl;
+    }
+}
+
 void heat_eqn_1D::export_to_CSV(string filename) {
     ofstream file;
     file.open(filename);
-
+    /*
     for (int i=0; i < mesh_0.size(); i++) {
         file << "x_" << i;
         if (i < mesh_0.size() - 1) file << ",";
     }
-    file << "\n";
+    file << "\n";*/
 
-    for (int i=0; i < timeline.size(); i++) {
-        for (int j=0; j < timeline[i].size(); j++) {
-            file << timeline[i][j];
-            if (j < timeline[i].size() - 1) file << ",";
+    for (int t=0; t < timeline.size(); t++) {
+        for (int i=0; i < timeline[t].size(); i++) {
+            file << timeline[t][i];
+            if (i < timeline[t].size() - 1) file << ",";
         }
         file << "\n";
     }
@@ -83,6 +95,21 @@ void heat_eqn_2D::solve_recurse(vector<vector<double>> current_mesh, double dx, 
     }
 
     solve_recurse(next_mesh, dx, dt, iterations - 1);
+}
+
+void heat_eqn_2D::export_output(){
+    cout << "Heat2D " << mesh_0.size() << "x" << mesh_0[0].size() << endl;
+    string CSV = "";
+
+    for (int t=0; t < timeline.size(); t++) {
+        for (int i=0; i < timeline[t].size(); i++) {
+        for (int j=0; j < timeline[t][i].size(); j++) {
+            CSV += to_string(timeline[t][i][j]);
+            if (!((j == timeline[t][i].size() - 1) && (i == timeline[t].size() - 1))) CSV += ",";
+        }}
+    CSV += "\n";
+    }
+    cout << CSV;
 }
 
 void heat_eqn_2D::export_to_CSV(string filename) {

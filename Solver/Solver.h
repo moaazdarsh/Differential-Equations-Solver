@@ -1,7 +1,7 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include "Eigen/Dense"
+#include "../Eigen/Eigen/Dense"
 #include <functional>
 #include <vector>
 #include <string>
@@ -61,6 +61,7 @@ class heat_eqn_1D{
     public:
         heat_eqn_1D(double a);
         void solve(vector<double> mesh0, double dx, double dt, int iterations);
+        void export_output();
         void export_to_CSV(string filename);
 };
 
@@ -82,6 +83,7 @@ class heat_eqn_2D{
     public:
         heat_eqn_2D(double a);
         void solve(vector<vector<double>> mesh0, double dx, double dt, int iterations);
+        void export_output();
         void export_to_CSV(string filename);
 
 };
